@@ -4,24 +4,25 @@ using UnityEngine;
 using System;
 
 public class FruitScript : MonoBehaviour
-{
-    private string fruitName;
+{   
+    private SpawnManager spawnManager;
+
     private int fruitID;
+    [SerializeField] private string fruitName;
 
-    public GameObject itemPrefab; 
-
-    private string[] fruitOrder = {"Apple", "Watermelon"};
+    private string[] fruitOrder = {"Blueberry", "Cherry", "Grape", "Strawberry", "Kiwi", "Lemon", "Apple", "Peach", "Orange", "Mango", "Pear", "Watermelon"};
 
     void Start() {
-        fruitName = gameObject.tag;
+        spawnManager = FindObjectOfType<SpawnManager>();
         fruitID = Array.IndexOf(fruitOrder, fruitName);
         Debug.Log(fruitID);
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
+    public void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == gameObject.tag) {
             if (string.Compare(collision.gameObject.name, gameObject.name) > 0) {
-                Instantiate(itemPrefab, transform.position, Quaternion.identity);
+                spawnManager.SpawnNextObject(fruitID, transform.position);
+                // Instantiate(itemPrefab, transform.position, Quaternion.identity);
             }
             Destroy(gameObject);
         }
