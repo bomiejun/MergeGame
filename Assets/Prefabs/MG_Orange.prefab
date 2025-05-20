@@ -117,7 +117,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 861491486820254709}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 23133f620b610412dbda7ca2b3f87667, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -209,5 +209,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 243477f2835014781bc8679992d515fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnManager: {fileID: 3826919861233791127, guid: f29065536d5274460a64b943049773f2, type: 3}
   fruitName: Orange

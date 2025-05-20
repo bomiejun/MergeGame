@@ -7,8 +7,10 @@ public class FruitScript : MonoBehaviour
 {   
     private SpawnManager spawnManager;
 
-    private int fruitID;
-    [SerializeField] private string fruitName;
+    public int fruitID;
+    public string fruitName;
+
+    public int spawnNum;
 
     private string[] fruitOrder = {"Blueberry", "Cherry", "Grape", "Strawberry", "Kiwi", "Lemon", "Apple", "Peach", "Orange", "Mango", "Pear", "Watermelon"};
 
@@ -16,12 +18,20 @@ public class FruitScript : MonoBehaviour
         spawnManager = FindObjectOfType<SpawnManager>();
         fruitID = Array.IndexOf(fruitOrder, fruitName);
         Debug.Log(fruitID);
+
+        spawnNum = spawnManager.incSpawnNum();
     }
 
     public void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == gameObject.tag) {
-            if (string.Compare(collision.gameObject.name, gameObject.name) > 0) {
-                spawnManager.SpawnNextObject(fruitID, transform.position);
+        FruitScript fruit = collision.gameObject.GetComponent<FruitScript>();
+
+        if (!(fruit == null) && fruit.fruitID == fruitID) {
+            // Debug.Log(fruit.fruitID);
+            // Debug.Log(fruitID);
+            if (fruit.spawnNum > spawnNum) {
+                Debug.Log(fruitID);
+                Debug.Log("here");
+                spawnManager.SpawnNextObject(fruitID, transform.position, collision.transform.position);
                 // Instantiate(itemPrefab, transform.position, Quaternion.identity);
             }
             Destroy(gameObject);
