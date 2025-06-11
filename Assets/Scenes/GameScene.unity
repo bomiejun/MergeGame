@@ -605,7 +605,7 @@ MonoBehaviour:
   musicSource: {fileID: 1367638768}
   SFXSource: {fileID: 1483790025}
   background: {fileID: 8300000, guid: e2e9838635602f04e945d44528ca73a0, type: 3}
-  combine: {fileID: 8300000, guid: 1f339645fa7fa6c42a34a686db6ebebf, type: 3}
+  combine: {fileID: 8300000, guid: 41b823de04383d541a2a80f6d43046e9, type: 3}
   restart: {fileID: 8300000, guid: 098513aa832b7734d9523f503b1eb883, type: 3}
 --- !u!4 &665539380
 Transform:
@@ -1172,7 +1172,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.879
+  m_Volume: 0.533
   m_Pitch: 1
   Loop: 1
   Mute: 0
