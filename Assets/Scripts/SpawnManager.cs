@@ -27,7 +27,15 @@ public class SpawnManager : MonoBehaviour
     public GameObject gameOverBoard;
     public Button restartButton;
 
-    void Start() {
+    AudioManager audioManager;
+
+    public void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
+    void Start()
+    {
         score = 0;
         newDropFruit();
         restartButton.gameObject.SetActive(false);
@@ -126,6 +134,7 @@ public class SpawnManager : MonoBehaviour
 
     void restartGame() {
         Debug.Log("burh");
+        audioManager.PlaySFX(audioManager.restart);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
