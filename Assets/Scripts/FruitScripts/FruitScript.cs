@@ -35,11 +35,12 @@ public class FruitScript : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision) {
         FruitScript fruit = collision.gameObject.GetComponent<FruitScript>();
-        audioManager.PlaySFX(audioManager.combine);
         if (!(fruit == null) && fruit.fruitID == fruitID) {
             // Debug.Log(fruit.fruitID);
             // Debug.Log(fruitID);
-            if (fruit.spawnNum > spawnNum) {
+            audioManager.PlaySFX(audioManager.combine);
+            if (fruit.spawnNum > spawnNum)
+            {
                 Debug.Log(fruitID);
                 Debug.Log("here");
                 spawnManager.SpawnNextObject(fruitID, transform.position, collision.transform.position);

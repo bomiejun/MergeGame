@@ -9,7 +9,6 @@ public class AudioManager : MonoBehaviour
 
     [Header("----------- Audio Clip -----------")]
     public AudioClip background;
-    public AudioClip start;
     public AudioClip combine;
     public AudioClip restart;
 
