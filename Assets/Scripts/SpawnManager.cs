@@ -2,11 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SpawnManager : MonoBehaviour
 {
+    private GameObject tempFruit;
+
+    public bool gamePlay = true;
+
+    public TextMeshProUGUI scoreText;
+
+    public GameObject gameOverBoard;
+    public Button restartButton;
     float leftmostX = float.MaxValue;
     float rightmostX = float.MinValue;
 
@@ -18,14 +27,6 @@ public class SpawnManager : MonoBehaviour
     private int biggestFruit = 0;
 
     private GameObject dropFruit;
-    private GameObject tempFruit;
-
-    public bool gamePlay = true;
-
-    public TextMeshProUGUI scoreText;
-
-    public GameObject gameOverBoard;
-    public Button restartButton;
 
     void Start() {
         score = 0;
@@ -36,7 +37,31 @@ public class SpawnManager : MonoBehaviour
         restartButton.onClick.AddListener(restartGame);
     }
 
-    void Update() {
+    void Update()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.deltaPosition.x < 0)
+            {
+                // move left!
+                dropFruit.transform.position += Vector3.left * 3f * Time.deltaTime;
+            }
+
+            if (touch.deltaPosition.x > 0)
+            {
+                dropFruit.transform.position += Vector3.right * 3f * Time.deltaTime;
+            }
+
+            if (gamePlay && touch.tapCount == 2 && dropFruit != null)
+            {
+                dropFruit.GetComponent<Rigidbody2D>().gravityScale = 1f;
+                StartCoroutine(SetBeenReleased(dropFruit));
+                dropFruit = null;
+                StartCoroutine(SpawnAfterDelay());
+            }
+        }
+
         if (gamePlay && Input.GetKeyDown(KeyCode.Space) && dropFruit != null)
         {            
             dropFruit.GetComponent<Rigidbody2D>().gravityScale = 1f;
@@ -96,6 +121,11 @@ public class SpawnManager : MonoBehaviour
     }
 
     void newDropFruit() {
+        if (fruitPrefabs.Length == 0)
+        {
+            Debug.Log("AAA");
+            return;
+        }
         dropFruit = Instantiate(fruitPrefabs[Random.Range(0, Mathf.Min(biggestFruit+1, 5))], new Vector3(0, 4.4f, 0), Quaternion.identity);
         dropFruit.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(-60f, 60f));
         dropFruit.GetComponent<Rigidbody2D>().gravityScale = 0f;
