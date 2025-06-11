@@ -19,6 +19,12 @@ public class FruitScript : MonoBehaviour
 
     private string[] fruitOrder = {"Blueberry", "Cherry", "Grape", "Strawberry", "Kiwi", "Lemon", "Apple", "Peach", "Orange", "Mango", "Pear", "Watermelon"};
 
+    AudioManager audioManager;
+
+    public void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     void Start() {
         spawnManager = FindObjectOfType<SpawnManager>();
         fruitID = Array.IndexOf(fruitOrder, fruitName);
@@ -29,7 +35,7 @@ public class FruitScript : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision) {
         FruitScript fruit = collision.gameObject.GetComponent<FruitScript>();
-
+        audioManager.PlaySFX(audioManager.combine);
         if (!(fruit == null) && fruit.fruitID == fruitID) {
             // Debug.Log(fruit.fruitID);
             // Debug.Log(fruitID);
